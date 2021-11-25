@@ -1,0 +1,1289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 4.1.2 (Python 3.10.0 on win32)" generated="20211124 11:22:54.287" rpa="false" schemaversion="2">
+<suite id="s1" name="API &amp; DataDriven &amp; E2E">
+<suite id="s1-s1" name="API" source="C:\Users\Lenovo\PycharmProjects\RobotFramework\Test\API.robot">
+<test id="s1-s1-t1" name="Add Book to the Database">
+<kw name="Create Dictionary" library="BuiltIn">
+<var>&amp;{req_body}</var>
+<arg>name=${NAME}</arg>
+<arg>isbn=${ISBN}</arg>
+<arg>aisle=${AISLE}</arg>
+<arg>author=${AUTHOR}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20211124 11:22:54.454" level="INFO">&amp;{req_body} = { name=RobotFramework | isbn=777777 | aisle=777777 | author=isaacstephen }</msg>
+<status status="PASS" starttime="20211124 11:22:54.454" endtime="20211124 11:22:54.455"/>
+</kw>
+<kw name="POST" library="RequestsLibrary">
+<var>${post_response}</var>
+<arg>${URL}/Library/Addbook.php</arg>
+<arg>json=${req_body}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a POST request.</doc>
+<msg timestamp="20211124 11:22:55.220" level="INFO">POST Request : url=https://rahulshettyacademy.com/Library/Addbook.php 
+ path_url=/Library/Addbook.php 
+ headers={'User-Agent': 'python-requests/2.26.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '89', 'Content-Type': 'application/json'} 
+ body=b'{"name": "RobotFramework", "isbn": "777777", "aisle": "777777", "author": "isaacstephen"}' 
+ </msg>
+<msg timestamp="20211124 11:22:55.220" level="INFO">POST Response : url=https://rahulshettyacademy.com/Library/Addbook.php 
+ status=200, reason=OK 
+ headers={'Date': 'Wed, 24 Nov 2021 03:22:55 GMT', 'Server': 'Apache/2.4.18 (Ubuntu)', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST', 'Access-Control-Max-Age': '3600', 'Access-Control-Allow-Headers': 'Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With', 'Content-Length': '48', 'Keep-Alive': 'timeout=5, max=100', 'Connection': 'Keep-Alive', 'Content-Type': 'application/json;charset=UTF-8'} 
+ body={"Msg":"successfully added","ID":"777777777777"} 
+ </msg>
+<msg timestamp="20211124 11:22:55.221" level="INFO">${post_response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20211124 11:22:54.455" endtime="20211124 11:22:55.221"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${post_response.json()}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20211124 11:22:55.222" level="INFO">{'Msg': 'successfully added', 'ID': '777777777777'}</msg>
+<status status="PASS" starttime="20211124 11:22:55.221" endtime="20211124 11:22:55.222"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>successfully added</arg>
+<arg>${post_response.json()}[Msg]</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" starttime="20211124 11:22:55.223" endtime="20211124 11:22:55.223"/>
+</kw>
+<kw name="Status Should Be" library="RequestsLibrary">
+<arg>200</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" starttime="20211124 11:22:55.224" endtime="20211124 11:22:55.224"/>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<var>${ID}</var>
+<arg>${post_response.json()}</arg>
+<arg>ID</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<msg timestamp="20211124 11:22:55.225" level="INFO">${ID} = 777777777777</msg>
+<status status="PASS" starttime="20211124 11:22:55.225" endtime="20211124 11:22:55.225"/>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<arg>${ID}</arg>
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<msg timestamp="20211124 11:22:55.226" level="INFO">${ID} = 777777777777</msg>
+<status status="PASS" starttime="20211124 11:22:55.226" endtime="20211124 11:22:55.226"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${ID}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20211124 11:22:55.226" level="INFO">777777777777</msg>
+<status status="PASS" starttime="20211124 11:22:55.226" endtime="20211124 11:22:55.226"/>
+</kw>
+<status status="PASS" starttime="20211124 11:22:54.453" endtime="20211124 11:22:55.227"/>
+</test>
+<test id="s1-s1-t2" name="Get Book Details from the Database">
+<kw name="GET" library="RequestsLibrary">
+<var>${get_response}</var>
+<arg>${URL}/Library/GetBook.php</arg>
+<arg>params=ID=${ID}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a GET request.</doc>
+<msg timestamp="20211124 11:22:55.632" level="INFO">GET Request : url=https://rahulshettyacademy.com/Library/GetBook.php?ID=777777777777 
+ path_url=/Library/GetBook.php?ID=777777777777 
+ headers={'User-Agent': 'python-requests/2.26.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20211124 11:22:55.633" level="INFO">GET Response : url=https://rahulshettyacademy.com/Library/GetBook.php?ID=777777777777 
+ status=200, reason=OK 
+ headers={'Date': 'Wed, 24 Nov 2021 03:22:55 GMT', 'Server': 'Apache/2.4.18 (Ubuntu)', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST', 'Access-Control-Max-Age': '3600', 'Access-Control-Allow-Headers': 'Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With', 'Content-Length': '89', 'Keep-Alive': 'timeout=5, max=100', 'Connection': 'Keep-Alive', 'Content-Type': 'application/json;charset=UTF-8'} 
+ body=[{"book_name":"RobotFramework","isbn":"777777","aisle":"777777","author":"isaacstephen"}] 
+ </msg>
+<msg timestamp="20211124 11:22:55.633" level="INFO">${get_response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20211124 11:22:55.230" endtime="20211124 11:22:55.633"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${get_response.json()}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20211124 11:22:55.634" level="INFO">[{'book_name': 'RobotFramework', 'isbn': '777777', 'aisle': '777777', 'author': 'isaacstephen'}]</msg>
+<status status="PASS" starttime="20211124 11:22:55.634" endtime="20211124 11:22:55.634"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${NAME}</arg>
+<arg>${get_response.json()}[0][book_name]</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" starttime="20211124 11:22:55.635" endtime="20211124 11:22:55.636"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${ISBN}</arg>
+<arg>${get_response.json()}[0][isbn]</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" starttime="20211124 11:22:55.637" endtime="20211124 11:22:55.637"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${AISLE}</arg>
+<arg>${get_response.json()}[0][aisle]</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" starttime="20211124 11:22:55.638" endtime="20211124 11:22:55.639"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${AUTHOR}</arg>
+<arg>${get_response.json()}[0][author]</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" starttime="20211124 11:22:55.640" endtime="20211124 11:22:55.640"/>
+</kw>
+<kw name="Status Should Be" library="RequestsLibrary">
+<arg>200</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" starttime="20211124 11:22:55.641" endtime="20211124 11:22:55.641"/>
+</kw>
+<status status="PASS" starttime="20211124 11:22:55.229" endtime="20211124 11:22:55.642"/>
+</test>
+<test id="s1-s1-t3" name="Delete Book from the database">
+<kw name="Create Dictionary" library="BuiltIn">
+<var>&amp;{delete_req_body}</var>
+<arg>ID=${ID}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20211124 11:22:55.646" level="INFO">&amp;{delete_req_body} = { ID=777777777777 }</msg>
+<status status="PASS" starttime="20211124 11:22:55.645" endtime="20211124 11:22:55.646"/>
+</kw>
+<kw name="POST" library="RequestsLibrary">
+<var>${delete_response}</var>
+<arg>${URL}/Library/DeleteBook.php</arg>
+<arg>json=&amp;{delete_req_body}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a POST request.</doc>
+<msg timestamp="20211124 11:22:56.098" level="INFO">POST Request : url=https://rahulshettyacademy.com/Library/DeleteBook.php 
+ path_url=/Library/DeleteBook.php 
+ headers={'User-Agent': 'python-requests/2.26.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '22', 'Content-Type': 'application/json'} 
+ body=b'{"ID": "777777777777"}' 
+ </msg>
+<msg timestamp="20211124 11:22:56.098" level="INFO">POST Response : url=https://rahulshettyacademy.com/Library/DeleteBook.php 
+ status=200, reason=OK 
+ headers={'Date': 'Wed, 24 Nov 2021 03:22:56 GMT', 'Server': 'Apache/2.4.18 (Ubuntu)', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST', 'Access-Control-Max-Age': '3600', 'Access-Control-Allow-Headers': 'Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With', 'Content-Length': '38', 'Keep-Alive': 'timeout=5, max=100', 'Connection': 'Keep-Alive', 'Content-Type': 'application/json;charset=UTF-8'} 
+ body={"msg":"book is successfully deleted"} 
+ </msg>
+<msg timestamp="20211124 11:22:56.098" level="INFO">${delete_response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20211124 11:22:55.647" endtime="20211124 11:22:56.098"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${delete_response.json()}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20211124 11:22:56.100" level="INFO">{'msg': 'book is successfully deleted'}</msg>
+<status status="PASS" starttime="20211124 11:22:56.099" endtime="20211124 11:22:56.100"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>book is successfully deleted</arg>
+<arg>${delete_response.json()}[msg]</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" starttime="20211124 11:22:56.101" endtime="20211124 11:22:56.101"/>
+</kw>
+<status status="PASS" starttime="20211124 11:22:55.645" endtime="20211124 11:22:56.102"/>
+</test>
+<doc>API Testing</doc>
+<status status="PASS" starttime="20211124 11:22:54.316" endtime="20211124 11:22:56.105"/>
+</suite>
+<suite id="s1-s2" name="DataDriven" source="C:\Users\Lenovo\PycharmProjects\RobotFramework\Test\DataDriven.robot">
+<test id="s1-s2-t1" name="Invalid_Username">
+<kw name="Open &quot;Web Shop&quot; Application" library="WebShop" type="SETUP">
+<kw name="Open Application" library="Common">
+<kw name="Evaluate" library="BuiltIn">
+<var>${chrome_options}</var>
+<arg>sys.modules['selenium.webdriver'].ChromeOptions()</arg>
+<arg>sys, selenium.webdriver</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20211124 11:22:56.383" level="INFO">${chrome_options} = &lt;selenium.webdriver.chrome.options.Options object at 0x0000018DB3A22950&gt;</msg>
+<status status="PASS" starttime="20211124 11:22:56.383" endtime="20211124 11:22:56.383"/>
+</kw>
+<kw name="Create List" library="BuiltIn">
+<var>${EXCLUDES}</var>
+<arg>enable-logging</arg>
+<doc>Returns a list containing given items.</doc>
+<msg timestamp="20211124 11:22:56.383" level="INFO">${EXCLUDES} = ['enable-logging']</msg>
+<status status="PASS" starttime="20211124 11:22:56.383" endtime="20211124 11:22:56.383"/>
+</kw>
+<kw name="Call Method" library="BuiltIn">
+<arg>${chrome_options}</arg>
+<arg>add_experimental_option</arg>
+<arg>excludeSwitches</arg>
+<arg>${EXCLUDES}</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" starttime="20211124 11:22:56.383" endtime="20211124 11:22:56.384"/>
+</kw>
+<kw name="Open Browser" library="SeleniumLibrary">
+<arg>${LOGIN_URL}</arg>
+<arg>chrome</arg>
+<arg>options=${chrome_options}</arg>
+<arg>executable_path=${CHROMEDRIVER_PATH}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20211124 11:22:56.386" level="INFO">Opening browser 'chrome' to base url 'http://demowebshop.tricentis.com/'.</msg>
+<status status="PASS" starttime="20211124 11:22:56.385" endtime="20211124 11:23:01.253"/>
+</kw>
+<kw name="Maximize Browser Window" library="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" starttime="20211124 11:23:01.254" endtime="20211124 11:23:01.387"/>
+</kw>
+<kw name="Title Should Be" library="SeleniumLibrary">
+<arg>Demo Web Shop</arg>
+<doc>Verifies that the current page title equals ``title``.</doc>
+<msg timestamp="20211124 11:23:01.391" level="INFO">Page title is 'Demo Web Shop'.</msg>
+<status status="PASS" starttime="20211124 11:23:01.387" endtime="20211124 11:23:01.391"/>
+</kw>
+<status status="PASS" starttime="20211124 11:22:56.382" endtime="20211124 11:23:01.391"/>
+</kw>
+<status status="PASS" starttime="20211124 11:22:56.382" endtime="20211124 11:23:01.391"/>
+</kw>
+<kw name="Validate Unsuccessful Login">
+<arg>isaacstephen</arg>
+<arg>123456</arg>
+<arg>Please enter a valid email address.</arg>
+<kw name="Go to &quot;Login&quot; Page" library="LandingPage">
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>${LOGIN_LINK}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20211124 11:23:01.392" level="INFO">Clicking element 'css: .ico-login'.</msg>
+<status status="PASS" starttime="20211124 11:23:01.392" endtime="20211124 11:23:01.938"/>
+</kw>
+<status status="PASS" starttime="20211124 11:23:01.392" endtime="20211124 11:23:01.939"/>
+</kw>
+<kw name="Fill in the &quot;Login&quot; Form and click &quot;Login&quot; button" library="Login">
+<arg>${username}</arg>
+<arg>${password}</arg>
+<kw name="Fill in Login &quot;Email&quot; field" library="Login">
+<arg>${email}</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>${LOGIN_EMAIL_FIELD}</arg>
+<arg>${email}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20211124 11:23:01.941" level="INFO">Typing text 'isaacstephen' into text field 'id: Email'.</msg>
+<status status="PASS" starttime="20211124 11:23:01.940" endtime="20211124 11:23:02.003"/>
+</kw>
+<status status="PASS" starttime="20211124 11:23:01.940" endtime="20211124 11:23:02.004"/>
+</kw>
+<kw name="Fill in Login &quot;Password&quot; field" library="Login">
+<arg>${password}</arg>
+<kw name="Input Password" library="SeleniumLibrary">
+<arg>${LOGIN_PASSWORD_FIELD}</arg>
+<arg>${password}</arg>
+<doc>Types the given password into the text field identified by ``locator``.</doc>
+<msg timestamp="20211124 11:23:02.005" level="INFO">Typing password into text field 'id: Password'.</msg>
+<msg timestamp="20211124 11:23:02.034" level="INFO">Temporally setting log level to: NONE</msg>
+<msg timestamp="20211124 11:23:02.080" level="INFO">Log level changed from NONE to INFO.</msg>
+<status status="PASS" starttime="20211124 11:23:02.004" endtime="20211124 11:23:02.080"/>
+</kw>
+<status status="PASS" starttime="20211124 11:23:02.004" endtime="20211124 11:23:02.080"/>
+</kw>
+<kw name="Click &quot;Login&quot; button" library="Login">
+<kw name="Click Button" library="SeleniumLibrary">
+<arg>${LOGIN_BUTTON}</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20211124 11:23:02.080" level="INFO">Clicking button 'css: .login-button'.</msg>
+<status status="PASS" starttime="20211124 11:23:02.080" endtime="20211124 11:23:02.126"/>
+</kw>
+<status status="PASS" starttime="20211124 11:23:02.080" endtime="20211124 11:23:02.126"/>
+</kw>
+<status status="PASS" starttime="20211124 11:23:01.939" endtime="20211124 11:23:02.127"/>
+</kw>
+<kw name="Click &quot;Login&quot; button" library="Login">
+<kw name="Click Button" library="SeleniumLibrary">
+<arg>${LOGIN_BUTTON}</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20211124 11:23:02.127" level="INFO">Clicking button 'css: .login-button'.</msg>
+<status status="PASS" starttime="20211124 11:23:02.127" endtime="20211124 11:23:02.158"/>
+</kw>
+<status status="PASS" starttime="20211124 11:23:02.127" endtime="20211124 11:23:02.158"/>
+</kw>
+<kw name="Verify that correct Error message is received" library="Login">
+<arg>${expected_error_message}</arg>
+<kw name="Sleep" library="BuiltIn">
+<arg>5</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20211124 11:23:07.171" level="INFO">Slept 5 seconds</msg>
+<status status="PASS" starttime="20211124 11:23:02.159" endtime="20211124 11:23:07.171"/>
+</kw>
+<kw name="Page Should Contain" library="SeleniumLibrary">
+<arg>${expected_error_message}</arg>
+<arg>TRACE</arg>
+<doc>Verifies that current page contains ``text``.</doc>
+<msg timestamp="20211124 11:23:07.183" level="INFO">Current page contains text 'Please enter a valid email address.'.</msg>
+<status status="PASS" starttime="20211124 11:23:07.171" endtime="20211124 11:23:07.183"/>
+</kw>
+<status status="PASS" starttime="20211124 11:23:02.158" endtime="20211124 11:23:07.183"/>
+</kw>
+<status status="PASS" starttime="20211124 11:23:01.391" endtime="20211124 11:23:07.183"/>
+</kw>
+<kw name="Close &quot;Web Shop&quot; Application" library="WebShop" type="TEARDOWN">
+<kw name="Close Application" library="Common">
+<kw name="Close Browser" library="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" starttime="20211124 11:23:07.184" endtime="20211124 11:23:09.336"/>
+</kw>
+<status status="PASS" starttime="20211124 11:23:07.184" endtime="20211124 11:23:09.337"/>
+</kw>
+<status status="PASS" starttime="20211124 11:23:07.184" endtime="20211124 11:23:09.337"/>
+</kw>
+<status status="PASS" starttime="20211124 11:22:56.380" endtime="20211124 11:23:09.339"/>
+</test>
+<test id="s1-s2-t2" name="Invalid_Password">
+<kw name="Open &quot;Web Shop&quot; Application" library="WebShop" type="SETUP">
+<kw name="Open Application" library="Common">
+<kw name="Evaluate" library="BuiltIn">
+<var>${chrome_options}</var>
+<arg>sys.modules['selenium.webdriver'].ChromeOptions()</arg>
+<arg>sys, selenium.webdriver</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20211124 11:23:09.343" level="INFO">${chrome_options} = &lt;selenium.webdriver.chrome.options.Options object at 0x0000018DB3A577F0&gt;</msg>
+<status status="PASS" starttime="20211124 11:23:09.343" endtime="20211124 11:23:09.343"/>
+</kw>
+<kw name="Create List" library="BuiltIn">
+<var>${EXCLUDES}</var>
+<arg>enable-logging</arg>
+<doc>Returns a list containing given items.</doc>
+<msg timestamp="20211124 11:23:09.343" level="INFO">${EXCLUDES} = ['enable-logging']</msg>
+<status status="PASS" starttime="20211124 11:23:09.343" endtime="20211124 11:23:09.343"/>
+</kw>
+<kw name="Call Method" library="BuiltIn">
+<arg>${chrome_options}</arg>
+<arg>add_experimental_option</arg>
+<arg>excludeSwitches</arg>
+<arg>${EXCLUDES}</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" starttime="20211124 11:23:09.343" endtime="20211124 11:23:09.344"/>
+</kw>
+<kw name="Open Browser" library="SeleniumLibrary">
+<arg>${LOGIN_URL}</arg>
+<arg>chrome</arg>
+<arg>options=${chrome_options}</arg>
+<arg>executable_path=${CHROMEDRIVER_PATH}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20211124 11:23:09.344" level="INFO">Opening browser 'chrome' to base url 'http://demowebshop.tricentis.com/'.</msg>
+<status status="PASS" starttime="20211124 11:23:09.344" endtime="20211124 11:23:25.855"/>
+</kw>
+<kw name="Maximize Browser Window" library="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" starttime="20211124 11:23:25.855" endtime="20211124 11:23:25.977"/>
+</kw>
+<kw name="Title Should Be" library="SeleniumLibrary">
+<arg>Demo Web Shop</arg>
+<doc>Verifies that the current page title equals ``title``.</doc>
+<msg timestamp="20211124 11:23:25.982" level="INFO">Page title is 'Demo Web Shop'.</msg>
+<status status="PASS" starttime="20211124 11:23:25.977" endtime="20211124 11:23:25.982"/>
+</kw>
+<status status="PASS" starttime="20211124 11:23:09.343" endtime="20211124 11:23:25.982"/>
+</kw>
+<status status="PASS" starttime="20211124 11:23:09.342" endtime="20211124 11:23:25.982"/>
+</kw>
+<kw name="Validate Unsuccessful Login">
+<arg>isaacstephen1@yahoo.com</arg>
+<arg>The credentials provided are incorrect</arg>
+<kw name="Go to &quot;Login&quot; Page" library="LandingPage">
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>${LOGIN_LINK}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20211124 11:23:25.983" level="INFO">Clicking element 'css: .ico-login'.</msg>
+<status status="PASS" starttime="20211124 11:23:25.983" endtime="20211124 11:23:26.535"/>
+</kw>
+<status status="PASS" starttime="20211124 11:23:25.983" endtime="20211124 11:23:26.536"/>
+</kw>
+<kw name="Fill in the &quot;Login&quot; Form and click &quot;Login&quot; button" library="Login">
+<arg>${username}</arg>
+<arg>${password}</arg>
+<kw name="Fill in Login &quot;Email&quot; field" library="Login">
+<arg>${email}</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>${LOGIN_EMAIL_FIELD}</arg>
+<arg>${email}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20211124 11:23:26.537" level="INFO">Typing text 'isaacstephen1@yahoo.com' into text field 'id: Email'.</msg>
+<status status="PASS" starttime="20211124 11:23:26.536" endtime="20211124 11:23:26.611"/>
+</kw>
+<status status="PASS" starttime="20211124 11:23:26.536" endtime="20211124 11:23:26.611"/>
+</kw>
+<kw name="Fill in Login &quot;Password&quot; field" library="Login">
+<arg>${password}</arg>
+<kw name="Input Password" library="SeleniumLibrary">
+<arg>${LOGIN_PASSWORD_FIELD}</arg>
+<arg>${password}</arg>
+<doc>Types the given password into the text field identified by ``locator``.</doc>
+<msg timestamp="20211124 11:23:26.614" level="INFO">Typing password into text field 'id: Password'.</msg>
+<msg timestamp="20211124 11:23:26.647" level="INFO">Temporally setting log level to: NONE</msg>
+<msg timestamp="20211124 11:23:26.683" level="INFO">Log level changed from NONE to INFO.</msg>
+<status status="PASS" starttime="20211124 11:23:26.614" endtime="20211124 11:23:26.683"/>
+</kw>
+<status status="PASS" starttime="20211124 11:23:26.612" endtime="20211124 11:23:26.683"/>
+</kw>
+<kw name="Click &quot;Login&quot; button" library="Login">
+<kw name="Click Button" library="SeleniumLibrary">
+<arg>${LOGIN_BUTTON}</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20211124 11:23:26.684" level="INFO">Clicking button 'css: .login-button'.</msg>
+<status status="PASS" starttime="20211124 11:23:26.684" endtime="20211124 11:23:27.269"/>
+</kw>
+<status status="PASS" starttime="20211124 11:23:26.684" endtime="20211124 11:23:27.270"/>
+</kw>
+<status status="PASS" starttime="20211124 11:23:26.536" endtime="20211124 11:23:27.270"/>
+</kw>
+<kw name="Click &quot;Login&quot; button" library="Login">
+<kw name="Click Button" library="SeleniumLibrary">
+<arg>${LOGIN_BUTTON}</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20211124 11:23:27.271" level="INFO">Clicking button 'css: .login-button'.</msg>
+<status status="PASS" starttime="20211124 11:23:27.270" endtime="20211124 11:23:27.779"/>
+</kw>
+<status status="PASS" starttime="20211124 11:23:27.270" endtime="20211124 11:23:27.780"/>
+</kw>
+<kw name="Verify that correct Error message is received" library="Login">
+<arg>${expected_error_message}</arg>
+<kw name="Sleep" library="BuiltIn">
+<arg>5</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20211124 11:23:32.786" level="INFO">Slept 5 seconds</msg>
+<status status="PASS" starttime="20211124 11:23:27.782" endtime="20211124 11:23:32.786"/>
+</kw>
+<kw name="Page Should Contain" library="SeleniumLibrary">
+<arg>${expected_error_message}</arg>
+<arg>TRACE</arg>
+<doc>Verifies that current page contains ``text``.</doc>
+<msg timestamp="20211124 11:23:32.804" level="INFO">Current page contains text 'The credentials provided are incorrect'.</msg>
+<status status="PASS" starttime="20211124 11:23:32.788" endtime="20211124 11:23:32.805"/>
+</kw>
+<status status="PASS" starttime="20211124 11:23:27.781" endtime="20211124 11:23:32.805"/>
+</kw>
+<status status="PASS" starttime="20211124 11:23:25.982" endtime="20211124 11:23:32.805"/>
+</kw>
+<kw name="Close &quot;Web Shop&quot; Application" library="WebShop" type="TEARDOWN">
+<kw name="Close Application" library="Common">
+<kw name="Close Browser" library="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" starttime="20211124 11:23:32.807" endtime="20211124 11:23:34.964"/>
+</kw>
+<status status="PASS" starttime="20211124 11:23:32.806" endtime="20211124 11:23:34.964"/>
+</kw>
+<status status="PASS" starttime="20211124 11:23:32.806" endtime="20211124 11:23:34.964"/>
+</kw>
+<status status="PASS" starttime="20211124 11:23:09.340" endtime="20211124 11:23:34.965"/>
+</test>
+<test id="s1-s2-t3" name="Blank_Username_Password">
+<kw name="Open &quot;Web Shop&quot; Application" library="WebShop" type="SETUP">
+<kw name="Open Application" library="Common">
+<kw name="Evaluate" library="BuiltIn">
+<var>${chrome_options}</var>
+<arg>sys.modules['selenium.webdriver'].ChromeOptions()</arg>
+<arg>sys, selenium.webdriver</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20211124 11:23:34.970" level="INFO">${chrome_options} = &lt;selenium.webdriver.chrome.options.Options object at 0x0000018DB3A80F40&gt;</msg>
+<status status="PASS" starttime="20211124 11:23:34.970" endtime="20211124 11:23:34.970"/>
+</kw>
+<kw name="Create List" library="BuiltIn">
+<var>${EXCLUDES}</var>
+<arg>enable-logging</arg>
+<doc>Returns a list containing given items.</doc>
+<msg timestamp="20211124 11:23:34.970" level="INFO">${EXCLUDES} = ['enable-logging']</msg>
+<status status="PASS" starttime="20211124 11:23:34.970" endtime="20211124 11:23:34.970"/>
+</kw>
+<kw name="Call Method" library="BuiltIn">
+<arg>${chrome_options}</arg>
+<arg>add_experimental_option</arg>
+<arg>excludeSwitches</arg>
+<arg>${EXCLUDES}</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" starttime="20211124 11:23:34.970" endtime="20211124 11:23:34.971"/>
+</kw>
+<kw name="Open Browser" library="SeleniumLibrary">
+<arg>${LOGIN_URL}</arg>
+<arg>chrome</arg>
+<arg>options=${chrome_options}</arg>
+<arg>executable_path=${CHROMEDRIVER_PATH}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20211124 11:23:34.971" level="INFO">Opening browser 'chrome' to base url 'http://demowebshop.tricentis.com/'.</msg>
+<status status="PASS" starttime="20211124 11:23:34.971" endtime="20211124 11:23:53.020"/>
+</kw>
+<kw name="Maximize Browser Window" library="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" starttime="20211124 11:23:53.020" endtime="20211124 11:23:53.154"/>
+</kw>
+<kw name="Title Should Be" library="SeleniumLibrary">
+<arg>Demo Web Shop</arg>
+<doc>Verifies that the current page title equals ``title``.</doc>
+<msg timestamp="20211124 11:23:53.157" level="INFO">Page title is 'Demo Web Shop'.</msg>
+<status status="PASS" starttime="20211124 11:23:53.154" endtime="20211124 11:23:53.157"/>
+</kw>
+<status status="PASS" starttime="20211124 11:23:34.970" endtime="20211124 11:23:53.158"/>
+</kw>
+<status status="PASS" starttime="20211124 11:23:34.969" endtime="20211124 11:23:53.158"/>
+</kw>
+<kw name="Validate Unsuccessful Login">
+<arg>No customer account found</arg>
+<kw name="Go to &quot;Login&quot; Page" library="LandingPage">
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>${LOGIN_LINK}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20211124 11:23:53.160" level="INFO">Clicking element 'css: .ico-login'.</msg>
+<status status="PASS" starttime="20211124 11:23:53.159" endtime="20211124 11:23:53.724"/>
+</kw>
+<status status="PASS" starttime="20211124 11:23:53.158" endtime="20211124 11:23:53.724"/>
+</kw>
+<kw name="Fill in the &quot;Login&quot; Form and click &quot;Login&quot; button" library="Login">
+<arg>${username}</arg>
+<arg>${password}</arg>
+<kw name="Fill in Login &quot;Email&quot; field" library="Login">
+<arg>${email}</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>${LOGIN_EMAIL_FIELD}</arg>
+<arg>${email}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20211124 11:23:53.726" level="INFO">Typing text '' into text field 'id: Email'.</msg>
+<status status="PASS" starttime="20211124 11:23:53.725" endtime="20211124 11:23:53.772"/>
+</kw>
+<status status="PASS" starttime="20211124 11:23:53.725" endtime="20211124 11:23:53.772"/>
+</kw>
+<kw name="Fill in Login &quot;Password&quot; field" library="Login">
+<arg>${password}</arg>
+<kw name="Input Password" library="SeleniumLibrary">
+<arg>${LOGIN_PASSWORD_FIELD}</arg>
+<arg>${password}</arg>
+<doc>Types the given password into the text field identified by ``locator``.</doc>
+<msg timestamp="20211124 11:23:53.773" level="INFO">Typing password into text field 'id: Password'.</msg>
+<msg timestamp="20211124 11:23:53.802" level="INFO">Temporally setting log level to: NONE</msg>
+<msg timestamp="20211124 11:23:53.827" level="INFO">Log level changed from NONE to INFO.</msg>
+<status status="PASS" starttime="20211124 11:23:53.772" endtime="20211124 11:23:53.827"/>
+</kw>
+<status status="PASS" starttime="20211124 11:23:53.772" endtime="20211124 11:23:53.828"/>
+</kw>
+<kw name="Click &quot;Login&quot; button" library="Login">
+<kw name="Click Button" library="SeleniumLibrary">
+<arg>${LOGIN_BUTTON}</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20211124 11:23:53.828" level="INFO">Clicking button 'css: .login-button'.</msg>
+<status status="PASS" starttime="20211124 11:23:53.828" endtime="20211124 11:23:54.365"/>
+</kw>
+<status status="PASS" starttime="20211124 11:23:53.828" endtime="20211124 11:23:54.365"/>
+</kw>
+<status status="PASS" starttime="20211124 11:23:53.724" endtime="20211124 11:23:54.365"/>
+</kw>
+<kw name="Click &quot;Login&quot; button" library="Login">
+<kw name="Click Button" library="SeleniumLibrary">
+<arg>${LOGIN_BUTTON}</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20211124 11:23:54.366" level="INFO">Clicking button 'css: .login-button'.</msg>
+<status status="PASS" starttime="20211124 11:23:54.366" endtime="20211124 11:23:54.881"/>
+</kw>
+<status status="PASS" starttime="20211124 11:23:54.365" endtime="20211124 11:23:54.881"/>
+</kw>
+<kw name="Verify that correct Error message is received" library="Login">
+<arg>${expected_error_message}</arg>
+<kw name="Sleep" library="BuiltIn">
+<arg>5</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20211124 11:23:59.882" level="INFO">Slept 5 seconds</msg>
+<status status="PASS" starttime="20211124 11:23:54.882" endtime="20211124 11:23:59.882"/>
+</kw>
+<kw name="Page Should Contain" library="SeleniumLibrary">
+<arg>${expected_error_message}</arg>
+<arg>TRACE</arg>
+<doc>Verifies that current page contains ``text``.</doc>
+<msg timestamp="20211124 11:23:59.899" level="INFO">Current page contains text 'No customer account found'.</msg>
+<status status="PASS" starttime="20211124 11:23:59.882" endtime="20211124 11:23:59.899"/>
+</kw>
+<status status="PASS" starttime="20211124 11:23:54.881" endtime="20211124 11:23:59.899"/>
+</kw>
+<status status="PASS" starttime="20211124 11:23:53.158" endtime="20211124 11:23:59.899"/>
+</kw>
+<kw name="Close &quot;Web Shop&quot; Application" library="WebShop" type="TEARDOWN">
+<kw name="Close Application" library="Common">
+<kw name="Close Browser" library="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" starttime="20211124 11:23:59.900" endtime="20211124 11:24:02.048"/>
+</kw>
+<status status="PASS" starttime="20211124 11:23:59.900" endtime="20211124 11:24:02.048"/>
+</kw>
+<status status="PASS" starttime="20211124 11:23:59.900" endtime="20211124 11:24:02.048"/>
+</kw>
+<status status="PASS" starttime="20211124 11:23:34.967" endtime="20211124 11:24:02.055"/>
+</test>
+<doc>To validate Unsuccessful Login scenarios</doc>
+<status status="PASS" starttime="20211124 11:22:56.107" endtime="20211124 11:24:02.056"/>
+</suite>
+<suite id="s1-s3" name="E2E" source="C:\Users\Lenovo\PycharmProjects\RobotFramework\Test\E2E.robot">
+<test id="s1-s3-t1" name="Open &quot;Web Shop&quot; Application">
+<kw name="Open &quot;Web Shop&quot; Application" library="WebShop">
+<kw name="Open Application" library="Common">
+<kw name="Evaluate" library="BuiltIn">
+<var>${chrome_options}</var>
+<arg>sys.modules['selenium.webdriver'].ChromeOptions()</arg>
+<arg>sys, selenium.webdriver</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20211124 11:24:02.086" level="INFO">${chrome_options} = &lt;selenium.webdriver.chrome.options.Options object at 0x0000018DB3A56800&gt;</msg>
+<status status="PASS" starttime="20211124 11:24:02.086" endtime="20211124 11:24:02.086"/>
+</kw>
+<kw name="Create List" library="BuiltIn">
+<var>${EXCLUDES}</var>
+<arg>enable-logging</arg>
+<doc>Returns a list containing given items.</doc>
+<msg timestamp="20211124 11:24:02.087" level="INFO">${EXCLUDES} = ['enable-logging']</msg>
+<status status="PASS" starttime="20211124 11:24:02.086" endtime="20211124 11:24:02.087"/>
+</kw>
+<kw name="Call Method" library="BuiltIn">
+<arg>${chrome_options}</arg>
+<arg>add_experimental_option</arg>
+<arg>excludeSwitches</arg>
+<arg>${EXCLUDES}</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" starttime="20211124 11:24:02.087" endtime="20211124 11:24:02.087"/>
+</kw>
+<kw name="Open Browser" library="SeleniumLibrary">
+<arg>${LOGIN_URL}</arg>
+<arg>chrome</arg>
+<arg>options=${chrome_options}</arg>
+<arg>executable_path=${CHROMEDRIVER_PATH}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20211124 11:24:02.087" level="INFO">Opening browser 'chrome' to base url 'http://demowebshop.tricentis.com/'.</msg>
+<status status="PASS" starttime="20211124 11:24:02.087" endtime="20211124 11:24:07.346"/>
+</kw>
+<kw name="Maximize Browser Window" library="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" starttime="20211124 11:24:07.346" endtime="20211124 11:24:07.463"/>
+</kw>
+<kw name="Title Should Be" library="SeleniumLibrary">
+<arg>Demo Web Shop</arg>
+<doc>Verifies that the current page title equals ``title``.</doc>
+<msg timestamp="20211124 11:24:07.466" level="INFO">Page title is 'Demo Web Shop'.</msg>
+<status status="PASS" starttime="20211124 11:24:07.463" endtime="20211124 11:24:07.467"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:02.086" endtime="20211124 11:24:07.467"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:02.086" endtime="20211124 11:24:07.467"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:02.085" endtime="20211124 11:24:07.467"/>
+</test>
+<test id="s1-s3-t2" name="Successful Registration">
+<kw name="Go to &quot;Register&quot; Page" library="WebShop">
+<kw name="Go to &quot;Register&quot; Page" library="LandingPage">
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>${REGISTER_LINK}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20211124 11:24:07.469" level="INFO">Clicking element 'css: .ico-register'.</msg>
+<status status="PASS" starttime="20211124 11:24:07.469" endtime="20211124 11:24:08.028"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:07.468" endtime="20211124 11:24:08.028"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:07.468" endtime="20211124 11:24:08.029"/>
+</kw>
+<kw name="Fill in the &quot;Registration&quot; Form and click &quot;Register&quot; button" library="WebShop">
+<kw name="Generate Random Email" library="Registration">
+<kw name="Generate Random String" library="String">
+<var>${random_string}</var>
+<arg>6</arg>
+<arg>[LOWER]</arg>
+<doc>Generates a string with a desired ``length`` from the given ``chars``.</doc>
+<msg timestamp="20211124 11:24:08.031" level="INFO">${random_string} = ibsalm</msg>
+<status status="PASS" starttime="20211124 11:24:08.030" endtime="20211124 11:24:08.031"/>
+</kw>
+<kw name="Catenate" library="BuiltIn">
+<var>${email_username}</var>
+<arg>SEPARATOR=_</arg>
+<arg>isaacponteres</arg>
+<arg>${random_string}</arg>
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<msg timestamp="20211124 11:24:08.032" level="INFO">${email_username} = isaacponteres_ibsalm</msg>
+<status status="PASS" starttime="20211124 11:24:08.031" endtime="20211124 11:24:08.032"/>
+</kw>
+<kw name="Catenate" library="BuiltIn">
+<var>${email_value}</var>
+<arg>SEPARATOR=@</arg>
+<arg>${email_username}</arg>
+<arg>yahoo.com</arg>
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<msg timestamp="20211124 11:24:08.032" level="INFO">${email_value} = isaacponteres_ibsalm@yahoo.com</msg>
+<status status="PASS" starttime="20211124 11:24:08.032" endtime="20211124 11:24:08.032"/>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<arg>${EMAIL}</arg>
+<arg>${email_value}</arg>
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<msg timestamp="20211124 11:24:08.033" level="INFO">${EMAIL} = isaacponteres_ibsalm@yahoo.com</msg>
+<status status="PASS" starttime="20211124 11:24:08.032" endtime="20211124 11:24:08.033"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:08.030" endtime="20211124 11:24:08.033"/>
+</kw>
+<kw name="Fill in the &quot;Registration&quot; Form and click &quot;Register&quot; button" library="Registration">
+<arg>${FIRST_NAME}</arg>
+<arg>${LAST_NAME}</arg>
+<arg>${EMAIL}</arg>
+<arg>${PASSWORD}</arg>
+<arg>${CONFIRM_PASSWORD}</arg>
+<kw name="Select &quot;Male&quot; radio button" library="Registration">
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>${MALE_RADIO_BUTTON}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20211124 11:24:08.034" level="INFO">Clicking element 'id: gender-male'.</msg>
+<status status="PASS" starttime="20211124 11:24:08.034" endtime="20211124 11:24:08.078"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:08.034" endtime="20211124 11:24:08.079"/>
+</kw>
+<kw name="Fill in &quot;First Name&quot; field" library="Registration">
+<arg>${first_name}</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>${FIRST_NAME_FIELD}</arg>
+<arg>${first_name}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20211124 11:24:08.080" level="INFO">Typing text 'Isaac' into text field 'id: FirstName'.</msg>
+<status status="PASS" starttime="20211124 11:24:08.079" endtime="20211124 11:24:08.149"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:08.079" endtime="20211124 11:24:08.149"/>
+</kw>
+<kw name="Fill in &quot;Last Name&quot; field" library="Registration">
+<arg>${last_name}</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>${LAST_NAME_FIELD}</arg>
+<arg>${last_name}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20211124 11:24:08.150" level="INFO">Typing text 'Ponteres' into text field 'id: LastName'.</msg>
+<status status="PASS" starttime="20211124 11:24:08.150" endtime="20211124 11:24:08.217"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:08.149" endtime="20211124 11:24:08.217"/>
+</kw>
+<kw name="Fill in Registration &quot;Email&quot; field" library="Registration">
+<arg>${email}</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>${REGISTRATION_EMAIL_FIELD}</arg>
+<arg>${email}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20211124 11:24:08.218" level="INFO">Typing text 'isaacponteres_ibsalm@yahoo.com' into text field 'id: Email'.</msg>
+<status status="PASS" starttime="20211124 11:24:08.217" endtime="20211124 11:24:08.297"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:08.217" endtime="20211124 11:24:08.297"/>
+</kw>
+<kw name="Fill in Registration &quot;Password&quot; field" library="Registration">
+<arg>${password}</arg>
+<kw name="Input Password" library="SeleniumLibrary">
+<arg>${REGISTRATION_PASSWORD_FIELD}</arg>
+<arg>${password}</arg>
+<doc>Types the given password into the text field identified by ``locator``.</doc>
+<msg timestamp="20211124 11:24:08.298" level="INFO">Typing password into text field 'id: Password'.</msg>
+<msg timestamp="20211124 11:24:08.329" level="INFO">Temporally setting log level to: NONE</msg>
+<msg timestamp="20211124 11:24:08.366" level="INFO">Log level changed from NONE to INFO.</msg>
+<status status="PASS" starttime="20211124 11:24:08.298" endtime="20211124 11:24:08.366"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:08.297" endtime="20211124 11:24:08.366"/>
+</kw>
+<kw name="Fill in &quot;Confirm Password&quot; field" library="Registration">
+<arg>${confirm_password}</arg>
+<kw name="Input Password" library="SeleniumLibrary">
+<arg>${CONFIRM_PASSWORD_FIELD}</arg>
+<arg>${confirm_password}</arg>
+<doc>Types the given password into the text field identified by ``locator``.</doc>
+<msg timestamp="20211124 11:24:08.367" level="INFO">Typing password into text field 'id: ConfirmPassword'.</msg>
+<msg timestamp="20211124 11:24:08.397" level="INFO">Temporally setting log level to: NONE</msg>
+<msg timestamp="20211124 11:24:08.428" level="INFO">Log level changed from NONE to INFO.</msg>
+<status status="PASS" starttime="20211124 11:24:08.367" endtime="20211124 11:24:08.428"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:08.366" endtime="20211124 11:24:08.428"/>
+</kw>
+<kw name="Click &quot;Register&quot; button" library="Registration">
+<kw name="Click Button" library="SeleniumLibrary">
+<arg>${REGISTER_BUTTON}</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20211124 11:24:08.429" level="INFO">Clicking button 'id: register-button'.</msg>
+<status status="PASS" starttime="20211124 11:24:08.428" endtime="20211124 11:24:09.694"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:08.428" endtime="20211124 11:24:09.695"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:08.033" endtime="20211124 11:24:09.695"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:08.029" endtime="20211124 11:24:09.695"/>
+</kw>
+<kw name="Verify that registration is successful" library="WebShop">
+<kw name="Verify that registration is successful" library="LandingPage">
+<kw name="Element Should Contain" library="SeleniumLibrary">
+<arg>${ACCOUNT_LINK}</arg>
+<arg>${EMAIL}</arg>
+<doc>Verifies that element ``locator`` contains text ``expected``.</doc>
+<msg timestamp="20211124 11:24:09.716" level="INFO">Element 'css: .account' contains text 'isaacponteres_ibsalm@yahoo.com'.</msg>
+<status status="PASS" starttime="20211124 11:24:09.696" endtime="20211124 11:24:09.716"/>
+</kw>
+<kw name="Element Should Not Be Visible" library="SeleniumLibrary">
+<arg>${REGISTER_LINK}</arg>
+<doc>Verifies that the element identified by ``locator`` is NOT visible.</doc>
+<msg timestamp="20211124 11:24:09.720" level="INFO">Element 'css: .ico-register' did not exist.</msg>
+<status status="PASS" starttime="20211124 11:24:09.716" endtime="20211124 11:24:09.721"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:09.696" endtime="20211124 11:24:09.721"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:09.696" endtime="20211124 11:24:09.721"/>
+</kw>
+<kw name="Click &quot;Continue&quot; button" library="WebShop">
+<kw name="Click &quot;Continue&quot; button" library="LandingPage">
+<kw name="Click Button" library="SeleniumLibrary">
+<arg>${CONTINUE_BUTTON}</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20211124 11:24:09.722" level="INFO">Clicking button 'css: .register-continue-button'.</msg>
+<status status="PASS" starttime="20211124 11:24:09.722" endtime="20211124 11:24:10.286"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:09.721" endtime="20211124 11:24:10.287"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:09.721" endtime="20211124 11:24:10.287"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:07.468" endtime="20211124 11:24:10.287"/>
+</test>
+<test id="s1-s3-t3" name="Succesful Logout">
+<kw name="Click &quot;Logout&quot; link" library="WebShop">
+<kw name="Click &quot;Logout&quot; link" library="LandingPage">
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>${LOGOUT_LINK}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20211124 11:24:10.290" level="INFO">Clicking element 'css: .ico-logout'.</msg>
+<status status="PASS" starttime="20211124 11:24:10.289" endtime="20211124 11:24:11.106"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:10.289" endtime="20211124 11:24:11.107"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:10.289" endtime="20211124 11:24:11.107"/>
+</kw>
+<kw name="Verify that User has successfully logged out" library="WebShop">
+<kw name="Verify that User has successfully logged out" library="LandingPage">
+<kw name="Element Should Be Visible" library="SeleniumLibrary">
+<arg>${LOGIN_LINK}</arg>
+<doc>Verifies that the element identified by ``locator`` is visible.</doc>
+<msg timestamp="20211124 11:24:11.139" level="INFO">Element 'css: .ico-login' is displayed.</msg>
+<status status="PASS" starttime="20211124 11:24:11.110" endtime="20211124 11:24:11.139"/>
+</kw>
+<kw name="Element Should Be Visible" library="SeleniumLibrary">
+<arg>${REGISTER_LINK}</arg>
+<doc>Verifies that the element identified by ``locator`` is visible.</doc>
+<msg timestamp="20211124 11:24:11.158" level="INFO">Element 'css: .ico-register' is displayed.</msg>
+<status status="PASS" starttime="20211124 11:24:11.139" endtime="20211124 11:24:11.159"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:11.109" endtime="20211124 11:24:11.159"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:11.108" endtime="20211124 11:24:11.159"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:10.288" endtime="20211124 11:24:11.160"/>
+</test>
+<test id="s1-s3-t4" name="Successful Login">
+<kw name="Go to &quot;Login&quot; Page" library="WebShop">
+<kw name="Go to &quot;Login&quot; Page" library="LandingPage">
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>${LOGIN_LINK}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20211124 11:24:11.162" level="INFO">Clicking element 'css: .ico-login'.</msg>
+<status status="PASS" starttime="20211124 11:24:11.162" endtime="20211124 11:24:11.768"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:11.161" endtime="20211124 11:24:11.769"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:11.161" endtime="20211124 11:24:11.769"/>
+</kw>
+<kw name="Fill in the &quot;Login&quot; Form and click &quot;Login&quot; button" library="WebShop">
+<kw name="Fill in the &quot;Login&quot; Form and click &quot;Login&quot; button" library="Login">
+<arg>${EMAIL}</arg>
+<arg>${PASSWORD}</arg>
+<kw name="Fill in Login &quot;Email&quot; field" library="Login">
+<arg>${email}</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>${LOGIN_EMAIL_FIELD}</arg>
+<arg>${email}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20211124 11:24:11.771" level="INFO">Typing text 'isaacponteres_ibsalm@yahoo.com' into text field 'id: Email'.</msg>
+<status status="PASS" starttime="20211124 11:24:11.771" endtime="20211124 11:24:11.835"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:11.770" endtime="20211124 11:24:11.835"/>
+</kw>
+<kw name="Fill in Login &quot;Password&quot; field" library="Login">
+<arg>${password}</arg>
+<kw name="Input Password" library="SeleniumLibrary">
+<arg>${LOGIN_PASSWORD_FIELD}</arg>
+<arg>${password}</arg>
+<doc>Types the given password into the text field identified by ``locator``.</doc>
+<msg timestamp="20211124 11:24:11.836" level="INFO">Typing password into text field 'id: Password'.</msg>
+<msg timestamp="20211124 11:24:11.862" level="INFO">Temporally setting log level to: NONE</msg>
+<msg timestamp="20211124 11:24:11.899" level="INFO">Log level changed from NONE to INFO.</msg>
+<status status="PASS" starttime="20211124 11:24:11.836" endtime="20211124 11:24:11.899"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:11.835" endtime="20211124 11:24:11.899"/>
+</kw>
+<kw name="Click &quot;Login&quot; button" library="Login">
+<kw name="Click Button" library="SeleniumLibrary">
+<arg>${LOGIN_BUTTON}</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20211124 11:24:11.900" level="INFO">Clicking button 'css: .login-button'.</msg>
+<status status="PASS" starttime="20211124 11:24:11.899" endtime="20211124 11:24:12.808"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:11.899" endtime="20211124 11:24:12.809"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:11.770" endtime="20211124 11:24:12.809"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:11.770" endtime="20211124 11:24:12.810"/>
+</kw>
+<kw name="Verify that User has successfully logged in" library="WebShop">
+<kw name="Verify that User has successfully logged in" library="Login">
+<kw name="Element Should Contain" library="SeleniumLibrary">
+<arg>${ACCOUNT_LINK}</arg>
+<arg>${EMAIL}</arg>
+<doc>Verifies that element ``locator`` contains text ``expected``.</doc>
+<msg timestamp="20211124 11:24:12.833" level="INFO">Element 'css: .account' contains text 'isaacponteres_ibsalm@yahoo.com'.</msg>
+<status status="PASS" starttime="20211124 11:24:12.811" endtime="20211124 11:24:12.833"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:12.811" endtime="20211124 11:24:12.833"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:12.810" endtime="20211124 11:24:12.833"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:11.161" endtime="20211124 11:24:12.834"/>
+</test>
+<test id="s1-s3-t5" name="Search Product">
+<kw name="Search &quot;Product&quot; item" library="WebShop">
+<kw name="Search &quot;Product&quot; item" library="Shop">
+<arg>${PRODUCT}</arg>
+<kw name="Type Product to &quot;Search&quot; field" library="Shop">
+<arg>${product}</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>${SEARCH_FIELD}</arg>
+<arg>${product}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20211124 11:24:12.837" level="INFO">Typing text 'laptop' into text field 'id: small-searchterms'.</msg>
+<status status="PASS" starttime="20211124 11:24:12.836" endtime="20211124 11:24:12.912"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:12.836" endtime="20211124 11:24:12.912"/>
+</kw>
+<kw name="Click &quot;Search&quot; button" library="Shop">
+<kw name="Click Button" library="SeleniumLibrary">
+<arg>${SEARCH_BUTTON}</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20211124 11:24:12.913" level="INFO">Clicking button 'css: .search-box-button'.</msg>
+<status status="PASS" starttime="20211124 11:24:12.913" endtime="20211124 11:24:13.714"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:12.912" endtime="20211124 11:24:13.715"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:12.836" endtime="20211124 11:24:13.715"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:12.836" endtime="20211124 11:24:13.716"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:12.835" endtime="20211124 11:24:13.716"/>
+</test>
+<test id="s1-s3-t6" name="Input Product Details and Add to Cart">
+<kw name="Select &quot;Product&quot; image" library="WebShop">
+<kw name="Select &quot;Product&quot; image" library="Shop">
+<kw name="Click Image" library="SeleniumLibrary">
+<arg>${ITEM_IMAGE}</arg>
+<doc>Clicks an image identified by ``locator``.</doc>
+<msg timestamp="20211124 11:24:13.722" level="INFO">Clicking image 'css: img[alt='Picture of 14.1-inch Laptop']'.</msg>
+<status status="PASS" starttime="20211124 11:24:13.721" endtime="20211124 11:24:22.618"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:13.720" endtime="20211124 11:24:22.618"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:13.720" endtime="20211124 11:24:22.618"/>
+</kw>
+<kw name="Input Item quantity" library="WebShop">
+<kw name="Input Item quantity" library="Shop">
+<arg>${ITEM_QUANTITY}</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>${QUANTITY_INPUT_BOX}</arg>
+<arg>${item_quantity}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20211124 11:24:22.620" level="INFO">Typing text '3' into text field 'id: addtocart_31_EnteredQuantity'.</msg>
+<status status="PASS" starttime="20211124 11:24:22.620" endtime="20211124 11:24:22.707"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:22.619" endtime="20211124 11:24:22.708"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:22.619" endtime="20211124 11:24:22.708"/>
+</kw>
+<kw name="Click &quot;Add to Cart&quot; button" library="WebShop">
+<kw name="Click &quot;Add to Cart&quot; button" library="Shop">
+<kw name="Click Button" library="SeleniumLibrary">
+<arg>${ADD_TO_CART_BUTTON}</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20211124 11:24:22.709" level="INFO">Clicking button 'id: add-to-cart-button-31'.</msg>
+<status status="PASS" starttime="20211124 11:24:22.709" endtime="20211124 11:24:22.756"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:22.709" endtime="20211124 11:24:22.756"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:22.708" endtime="20211124 11:24:22.756"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:13.718" endtime="20211124 11:24:22.757"/>
+</test>
+<test id="s1-s3-t7" name="Select Product(s) to checkout and Agree to terms and service">
+<kw name="Click &quot;Shopping Cart&quot; link" library="WebShop">
+<kw name="Click &quot;Shopping Cart&quot; link" library="ShoppingCart">
+<kw name="Sleep" library="BuiltIn">
+<arg>3</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20211124 11:24:25.769" level="INFO">Slept 3 seconds</msg>
+<status status="PASS" starttime="20211124 11:24:22.759" endtime="20211124 11:24:25.769"/>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>${SHOPPING_CART_LINK}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20211124 11:24:25.769" level="INFO">Clicking element 'css: a[class='ico-cart']'.</msg>
+<status status="PASS" starttime="20211124 11:24:25.769" endtime="20211124 11:24:26.510"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:22.759" endtime="20211124 11:24:26.511"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:22.759" endtime="20211124 11:24:26.511"/>
+</kw>
+<kw name="Tick item checkbox" library="WebShop">
+<kw name="Tick item checkbox" library="ShoppingCart">
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>${ITEM_CHECKBOX}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20211124 11:24:26.513" level="INFO">Clicking element 'css: input[type='checkbox']'.</msg>
+<status status="PASS" starttime="20211124 11:24:26.513" endtime="20211124 11:24:26.553"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:26.512" endtime="20211124 11:24:26.553"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:26.512" endtime="20211124 11:24:26.554"/>
+</kw>
+<kw name="Tick &quot;terms of service&quot; checkbox" library="WebShop">
+<kw name="Tick &quot;terms of service&quot; checkbox" library="ShoppingCart">
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>${TERMS_OF_SERVICE_CHECKBOX}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20211124 11:24:26.556" level="INFO">Clicking element 'id: termsofservice'.</msg>
+<status status="PASS" starttime="20211124 11:24:26.556" endtime="20211124 11:24:26.591"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:26.555" endtime="20211124 11:24:26.591"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:26.554" endtime="20211124 11:24:26.591"/>
+</kw>
+<kw name="Click &quot;Checkout&quot; button" library="WebShop">
+<kw name="Click &quot;Checkout&quot; button" library="ShoppingCart">
+<kw name="Click Button" library="SeleniumLibrary">
+<arg>${CHECKOUT_BUTTON}</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20211124 11:24:26.592" level="INFO">Clicking button 'id: checkout'.</msg>
+<status status="PASS" starttime="20211124 11:24:26.592" endtime="20211124 11:24:27.949"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:26.592" endtime="20211124 11:24:27.950"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:26.592" endtime="20211124 11:24:27.950"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:22.758" endtime="20211124 11:24:27.951"/>
+</test>
+<test id="s1-s3-t8" name="Checkout Product">
+<kw name="Fill in &quot;Billing Address&quot; Form" library="WebShop">
+<kw name="Fill in &quot;Billing Address&quot; Form" library="Checkout">
+<arg>${COUNTRY}</arg>
+<arg>${CITY}</arg>
+<arg>${ADDRESS1}</arg>
+<arg>${ADDRESS2}</arg>
+<arg>${ZIP_POSTAL_CODE}</arg>
+<arg>${PHONE_NUMBER}</arg>
+<kw name="Click Billing Address &quot;Country&quot; dropdown" library="Checkout">
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>${BILLING_ADDRESS_COUNTRY_DROPDOWN}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20211124 11:24:27.954" level="INFO">Clicking element 'id: BillingNewAddress_CountryId'.</msg>
+<status status="PASS" starttime="20211124 11:24:27.954" endtime="20211124 11:24:28.032"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:27.954" endtime="20211124 11:24:28.032"/>
+</kw>
+<kw name="Select &quot;Country&quot; option" library="Checkout">
+<arg>${country}</arg>
+<kw name="Select From List By Label" library="SeleniumLibrary">
+<arg>${BILLING_ADDRESS_COUNTRY_DROPDOWN}</arg>
+<arg>${country}</arg>
+<doc>Selects options from selection list ``locator`` by ``labels``.</doc>
+<msg timestamp="20211124 11:24:28.034" level="INFO">Selecting options from selection list 'id: BillingNewAddress_CountryId' by label Philippines.</msg>
+<status status="PASS" starttime="20211124 11:24:28.033" endtime="20211124 11:24:28.095"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:28.033" endtime="20211124 11:24:28.095"/>
+</kw>
+<kw name="Fill in &quot;City&quot; field" library="Checkout">
+<arg>${city}</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>${CITY_FIELD}</arg>
+<arg>${city}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20211124 11:24:28.097" level="INFO">Typing text 'Bolinao' into text field 'id: BillingNewAddress_City'.</msg>
+<status status="PASS" starttime="20211124 11:24:28.096" endtime="20211124 11:24:28.169"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:28.095" endtime="20211124 11:24:28.169"/>
+</kw>
+<kw name="Fill in &quot;Address1&quot; field" library="Checkout">
+<arg>${address1}</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>${ADDRESS1_FIELD}</arg>
+<arg>${address1}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20211124 11:24:28.170" level="INFO">Typing text 'Bonifacio Avenue' into text field 'id: BillingNewAddress_Address1'.</msg>
+<status status="PASS" starttime="20211124 11:24:28.170" endtime="20211124 11:24:28.237"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:28.169" endtime="20211124 11:24:28.237"/>
+</kw>
+<kw name="Fill in &quot;Address2&quot; field" library="Checkout">
+<arg>${address2}</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>${ADDRESS2_FIELD}</arg>
+<arg>${address2}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20211124 11:24:28.238" level="INFO">Typing text 'Concordia' into text field 'id: BillingNewAddress_Address2'.</msg>
+<status status="PASS" starttime="20211124 11:24:28.238" endtime="20211124 11:24:28.301"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:28.238" endtime="20211124 11:24:28.301"/>
+</kw>
+<kw name="Fill in &quot;Zip/postal code&quot; field" library="Checkout">
+<arg>${zip_postal_code}</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>${ZIP_POSTAL_CODE_FIELD}</arg>
+<arg>${zip_postal_code}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20211124 11:24:28.302" level="INFO">Typing text '2406' into text field 'name: BillingNewAddress.ZipPostalCode'.</msg>
+<status status="PASS" starttime="20211124 11:24:28.302" endtime="20211124 11:24:28.364"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:28.302" endtime="20211124 11:24:28.365"/>
+</kw>
+<kw name="Fill in &quot;Phone number&quot; field" library="Checkout">
+<arg>${phone_number}</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>${PHONE_NUMBER_FIELD}</arg>
+<arg>${phone_number}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20211124 11:24:28.365" level="INFO">Typing text '+639778268888' into text field 'name: BillingNewAddress.PhoneNumber'.</msg>
+<status status="PASS" starttime="20211124 11:24:28.365" endtime="20211124 11:24:28.435"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:28.365" endtime="20211124 11:24:28.435"/>
+</kw>
+<kw name="Click Billing Address &quot;Continue&quot; button" library="Checkout">
+<kw name="Click Button" library="SeleniumLibrary">
+<arg>${BILLING_ADDRESS_CONTINUE_BUTTON}</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20211124 11:24:28.436" level="INFO">Clicking button 'css: .new-address-next-step-button'.</msg>
+<status status="PASS" starttime="20211124 11:24:28.435" endtime="20211124 11:24:28.483"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:28.435" endtime="20211124 11:24:28.483"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:27.953" endtime="20211124 11:24:28.483"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:27.953" endtime="20211124 11:24:28.483"/>
+</kw>
+<kw name="Select/Add New Shipping Address" library="WebShop">
+<kw name="Click Shipping Address &quot;Continue&quot; button" library="Checkout">
+<kw name="Sleep" library="BuiltIn">
+<arg>3</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20211124 11:24:31.491" level="INFO">Slept 3 seconds</msg>
+<status status="PASS" starttime="20211124 11:24:28.485" endtime="20211124 11:24:31.491"/>
+</kw>
+<kw name="Click Button" library="SeleniumLibrary">
+<arg>${SHIPPING_ADDRESS_CONTINUE_BUTTON}</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20211124 11:24:31.492" level="INFO">Clicking button 'xpath: /html/body/div[4]/div[1]/div[4]/div/div/div[2]/ol/li[2]/div[2]/div/input'.</msg>
+<status status="PASS" starttime="20211124 11:24:31.492" endtime="20211124 11:24:31.538"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:28.484" endtime="20211124 11:24:31.539"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:28.484" endtime="20211124 11:24:31.539"/>
+</kw>
+<kw name="Select Shipping Method" library="WebShop">
+<kw name="Click Shipping Method &quot;Continue&quot; button" library="Checkout">
+<kw name="Sleep" library="BuiltIn">
+<arg>3</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20211124 11:24:34.554" level="INFO">Slept 3 seconds</msg>
+<status status="PASS" starttime="20211124 11:24:31.543" endtime="20211124 11:24:34.554"/>
+</kw>
+<kw name="Click Button" library="SeleniumLibrary">
+<arg>${SHIPPING_METHOD_CONTINUE_BUTTON}</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20211124 11:24:34.555" level="INFO">Clicking button 'css: .shipping-method-next-step-button'.</msg>
+<status status="PASS" starttime="20211124 11:24:34.554" endtime="20211124 11:24:34.603"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:31.542" endtime="20211124 11:24:34.603"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:31.541" endtime="20211124 11:24:34.603"/>
+</kw>
+<kw name="Select Payment Method" library="WebShop">
+<kw name="Click Payment Method &quot;Continue&quot; button" library="Checkout">
+<kw name="Sleep" library="BuiltIn">
+<arg>3</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20211124 11:24:37.608" level="INFO">Slept 3 seconds</msg>
+<status status="PASS" starttime="20211124 11:24:34.606" endtime="20211124 11:24:37.608"/>
+</kw>
+<kw name="Click Button" library="SeleniumLibrary">
+<arg>${PAYMENT_METHOD_CONTINUE_BUTTON}</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20211124 11:24:37.609" level="INFO">Clicking button 'css: .payment-method-next-step-button'.</msg>
+<status status="PASS" starttime="20211124 11:24:37.609" endtime="20211124 11:24:37.662"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:34.606" endtime="20211124 11:24:37.662"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:34.604" endtime="20211124 11:24:37.662"/>
+</kw>
+<kw name="Review Payment Information" library="WebShop">
+<kw name="Click Payment Information &quot;Continue&quot; button" library="Checkout">
+<kw name="Sleep" library="BuiltIn">
+<arg>3</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20211124 11:24:40.666" level="INFO">Slept 3 seconds</msg>
+<status status="PASS" starttime="20211124 11:24:37.664" endtime="20211124 11:24:40.666"/>
+</kw>
+<kw name="Click Button" library="SeleniumLibrary">
+<arg>${PAYMENT_INFORMATION_CONTINUE_BUTTON}</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20211124 11:24:40.667" level="INFO">Clicking button 'css: .payment-info-next-step-button'.</msg>
+<status status="PASS" starttime="20211124 11:24:40.666" endtime="20211124 11:24:40.717"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:37.663" endtime="20211124 11:24:40.718"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:37.663" endtime="20211124 11:24:40.718"/>
+</kw>
+<kw name="Confirm Order" library="WebShop">
+<kw name="Click &quot;Confirm&quot; button" library="Checkout">
+<kw name="Sleep" library="BuiltIn">
+<arg>3</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20211124 11:24:43.719" level="INFO">Slept 3 seconds</msg>
+<status status="PASS" starttime="20211124 11:24:40.719" endtime="20211124 11:24:43.719"/>
+</kw>
+<kw name="Click Button" library="SeleniumLibrary">
+<arg>${CONFIRM_BUTTON}</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20211124 11:24:43.722" level="INFO">Clicking button 'css: .confirm-order-next-step-button'.</msg>
+<status status="PASS" starttime="20211124 11:24:43.720" endtime="20211124 11:24:43.775"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:40.719" endtime="20211124 11:24:43.775"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:40.718" endtime="20211124 11:24:43.776"/>
+</kw>
+<kw name="Verify that order has been successfully processed" library="WebShop">
+<kw name="Verify that order has been successfully processed" library="Checkout">
+<kw name="Sleep" library="BuiltIn">
+<arg>5</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20211124 11:24:48.790" level="INFO">Slept 5 seconds</msg>
+<status status="PASS" starttime="20211124 11:24:43.777" endtime="20211124 11:24:48.790"/>
+</kw>
+<kw name="Page Should Contain" library="SeleniumLibrary">
+<arg>Your order has been successfully processed!</arg>
+<arg>TRACE</arg>
+<doc>Verifies that current page contains ``text``.</doc>
+<msg timestamp="20211124 11:24:48.808" level="INFO">Current page contains text 'Your order has been successfully processed!'.</msg>
+<status status="PASS" starttime="20211124 11:24:48.791" endtime="20211124 11:24:48.808"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:43.776" endtime="20211124 11:24:48.808"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:43.776" endtime="20211124 11:24:48.808"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:27.952" endtime="20211124 11:24:48.809"/>
+</test>
+<test id="s1-s3-t9" name="Close &quot;Web Shop&quot; Application">
+<kw name="Close &quot;Web Shop&quot; Application" library="WebShop">
+<kw name="Close Application" library="Common">
+<kw name="Close Browser" library="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" starttime="20211124 11:24:48.812" endtime="20211124 11:24:50.971"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:48.812" endtime="20211124 11:24:50.972"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:48.811" endtime="20211124 11:24:50.972"/>
+</kw>
+<status status="PASS" starttime="20211124 11:24:48.811" endtime="20211124 11:24:50.973"/>
+</test>
+<doc>To validate End to End Customer Order transaction</doc>
+<status status="PASS" starttime="20211124 11:24:02.059" endtime="20211124 11:24:50.974"/>
+</suite>
+<status status="PASS" starttime="20211124 11:22:54.289" endtime="20211124 11:24:50.976"/>
+</suite>
+<statistics>
+<total>
+<stat pass="15" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="15" fail="0" skip="0" id="s1" name="API &amp; DataDriven &amp; E2E">API &amp; DataDriven &amp; E2E</stat>
+<stat pass="3" fail="0" skip="0" id="s1-s1" name="API">API &amp; DataDriven &amp; E2E.API</stat>
+<stat pass="3" fail="0" skip="0" id="s1-s2" name="DataDriven">API &amp; DataDriven &amp; E2E.DataDriven</stat>
+<stat pass="9" fail="0" skip="0" id="s1-s3" name="E2E">API &amp; DataDriven &amp; E2E.E2E</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

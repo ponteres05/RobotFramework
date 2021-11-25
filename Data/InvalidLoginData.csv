@@ -1,0 +1,4 @@
+*** Test Cases ***,${username},${password},${expected_error_message}
+Invalid_Username,isaacstephen,123456,Please enter a valid email address.
+Invalid_Password,isaacstephen1@yahoo.com,,The credentials provided are incorrect
+Blank_Username_Password,,,No customer account found
