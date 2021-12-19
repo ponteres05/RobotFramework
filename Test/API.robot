@@ -6,8 +6,8 @@ Library             RequestsLibrary
 *** Variables ***
 ${URL}          https://rahulshettyacademy.com
 ${NAME}         RobotFramework
-${ISBN}         777777
-${AISLE}        777777
+${ISBN}         1000013
+${AISLE}        1000013
 ${AUTHOR}       isaacstephen
 ${ID}
 
